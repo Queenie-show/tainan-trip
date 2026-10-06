@@ -35,6 +35,7 @@
     }
 
     .hero {
+      position: relative;
       background: linear-gradient(135deg, #ffd7a8 0%, #ffc0d9 52%, #ffe0a3 100%);
       border: 1px solid #f3b9ce;
       border-radius: 24px;
@@ -53,6 +54,30 @@
       margin: 10px 0 0;
       font-size: 1rem;
       color: var(--muted);
+    }
+
+    .theme-toggle {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      border: 1px solid rgba(95, 56, 35, 0.18);
+      background: rgba(255, 255, 255, 0.86);
+      color: var(--text);
+      border-radius: 999px;
+      padding: 8px 14px;
+      font: inherit;
+      font-size: 0.92rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .theme-toggle:hover {
+      background: rgba(255, 255, 255, 0.96);
+    }
+
+    .theme-toggle:focus-visible {
+      outline: 3px solid rgba(255, 122, 89, 0.35);
+      outline-offset: 2px;
     }
 
     .today-card {
@@ -148,6 +173,58 @@
       color: #5d4d45;
     }
 
+    body.dark-mode {
+      background: linear-gradient(180deg, #1f1f24 0%, #18181c 100%);
+      color: #f5f5f7;
+    }
+
+    body.dark-mode .hero {
+      background: linear-gradient(135deg, #2f3138 0%, #262931 100%);
+      border-color: #4a4d57;
+    }
+
+    body.dark-mode .today-card {
+      background: linear-gradient(135deg, #2a2d35 0%, #23262d 100%);
+      border-color: #4b4f5a;
+    }
+
+    body.dark-mode .day {
+      background: linear-gradient(180deg, #22242b 0%, #1b1d23 100%);
+      border-color: #464a55;
+    }
+
+    body.dark-mode .spot {
+      background: linear-gradient(135deg, #30333b 0%, #262931 100%);
+      border-color: #4a4e59;
+    }
+
+    body.dark-mode .subtitle,
+    body.dark-mode .day-note,
+    body.dark-mode .today-copy,
+    body.dark-mode .desc,
+    body.dark-mode .footer-note {
+      color: #e6e6ea;
+    }
+
+    body.dark-mode .place {
+      color: #ffffff;
+    }
+
+    body.dark-mode .theme-toggle {
+      background: rgba(38, 41, 49, 0.96);
+      color: #f8f8fb;
+      border-color: #595e6b;
+    }
+
+    body.dark-mode .theme-toggle:hover {
+      background: rgba(50, 53, 63, 0.98);
+    }
+
+    body.dark-mode .time {
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffd27a;
+    }
+
     .footer-note {
       margin-top: 18px;
       text-align: center;
@@ -172,6 +249,7 @@
 <body>
   <main class="page">
     <section class="hero">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">切換深色模式</button>
       <h1>歡樂遊</h1>
       <p class="subtitle">打開先看今日行程，跟小夥伴一起帶著暖暖好心情和雀躍期待出發。</p>
     </section>
@@ -266,11 +344,35 @@
 
   <script>
     (() => {
-      const daySections = [...document.querySelectorAll('section.day[data-day]')];
-      const dayIndex = new Date().getDate() % 2 === 0 ? 1 : 0;
-      const activeSection = daySections[Math.min(dayIndex, daySections.length - 1)];
+      const storageKey = 'travel-theme';
+      const body = document.body;
+      const toggleButton = document.getElementById('theme-toggle');
       const todayList = document.getElementById('today-list');
       const todayCopy = document.getElementById('today-copy');
+      const daySections = [...document.querySelectorAll('section.day[data-day]')];
+
+      const applyTheme = (theme) => {
+        const isDark = theme === 'dark';
+        body.classList.toggle('dark-mode', isDark);
+        if (toggleButton) {
+          toggleButton.textContent = isDark ? '切換淺色模式' : '切換深色模式';
+          toggleButton.setAttribute('aria-pressed', String(isDark));
+        }
+      };
+
+      const savedTheme = localStorage.getItem(storageKey);
+      applyTheme(savedTheme === 'dark' ? 'dark' : 'light');
+
+      if (toggleButton) {
+        toggleButton.addEventListener('click', () => {
+          const nextTheme = body.classList.contains('dark-mode') ? 'light' : 'dark';
+          localStorage.setItem(storageKey, nextTheme);
+          applyTheme(nextTheme);
+        });
+      }
+
+      const dayIndex = new Date().getDate() % 2 === 0 ? 1 : 0;
+      const activeSection = daySections[Math.min(dayIndex, daySections.length - 1)];
       if (!activeSection || !todayList || !todayCopy) return;
       const label = activeSection.dataset.day || '今日';
       todayCopy.textContent = `今天先看${label}，跟小夥伴暖暖出發，開心玩整天。`;
@@ -280,4 +382,3 @@
   </script>
 </body>
 </html>
-
