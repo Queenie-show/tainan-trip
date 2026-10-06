@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>歡樂遊</title>
+  <style>
+    :root {
+      --bg: #fff4fb;
+      --card: #ffffff;
+      --text: #2f241f;
+      --muted: #72645c;
+      --accent: #ff7a59;
+      --accent-soft: #ffe2ea;
+      --border: #f3c7d8;
+      --shadow: 0 10px 24px rgba(91, 53, 33, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+      background: linear-gradient(180deg, #fff3b8 0%, #ffd6e7 38%, #ffe7c7 72%, var(--bg) 100%);
+      color: var(--text);
+      line-height: 1.65;
+    }
+
+    .page {
+      width: min(100%, 760px);
+      margin: 0 auto;
+      padding: 20px 16px 40px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, #ffd7a8 0%, #ffc0d9 52%, #ffe0a3 100%);
+      border: 1px solid #f3b9ce;
+      border-radius: 24px;
+      padding: 24px 20px;
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2rem;
+      line-height: 1.2;
+      letter-spacing: 0.04em;
+    }
+
+    .subtitle {
+      margin: 10px 0 0;
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    .today-card {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #ffe7a8 0%, #ffd4ea 100%);
+      border: 1px solid #f3b9ce;
+      border-radius: 22px;
+      padding: 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .today-title {
+      margin: 0 0 8px;
+      font-size: 1.12rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .today-copy {
+      margin: 0 0 12px;
+      font-size: 0.98rem;
+      color: #5d4d45;
+    }
+
+    .day {
+      margin-top: 20px;
+      background: linear-gradient(180deg, #fffefd 0%, #fff8fc 100%);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 18px 16px;
+      box-shadow: var(--shadow);
+    }
+
+    .day-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 70px;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .day-note {
+      margin: 0;
+      font-size: 0.98rem;
+      color: var(--muted);
+    }
+
+    .spot-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .spot {
+      background: linear-gradient(135deg, #ffe7ef 0%, #fff0d8 100%);
+      border-radius: 18px;
+      padding: 14px;
+      border: 1px solid #f4c2d3;
+    }
+
+    .time {
+      display: inline-block;
+      margin-bottom: 6px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      color: var(--accent);
+      font-size: 0.95rem;
+      font-weight: 700;
+    }
+
+    .place {
+      margin: 0;
+      font-size: 1.08rem;
+      font-weight: 700;
+    }
+
+    .desc {
+      margin: 6px 0 0;
+      font-size: 0.98rem;
+      color: #5d4d45;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      text-align: center;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    @media (min-width: 640px) {
+      .page {
+        padding: 28px 20px 48px;
+      }
+
+      .hero,
+      .today-card,
+      .day {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <h1>歡樂遊</h1>
+      <p class="subtitle">打開先看今日行程，跟小夥伴一起帶著暖暖好心情和雀躍期待出發。</p>
+    </section>
+
+    <section class="today-card">
+      <h2 class="today-title">今日行程</h2>
+      <p class="today-copy" id="today-copy">今天的開心行程已經幫你排好，往下看就能直接出發。</p>
+      <div class="spot-list" id="today-list"></div>
+    </section>
+
+    <section class="day" data-day="第一天">
+      <div class="day-header">
+        <span class="badge">第一天</span>
+        <p class="day-note">慢慢吃、慢慢逛的市區路線</p>
+      </div>
+      <div class="spot-list">
+        <article class="spot">
+          <span class="time">09:30</span>
+          <h2 class="place">小晨早餐角</h2>
+          <p class="desc">先吃一頓暖呼呼早餐，替歡樂遊打開好心情。</p>
+        </article>
+        <article class="spot">
+          <span class="time">11:00</span>
+          <h2 class="place">小巷散步點</h2>
+          <p class="desc">邊走邊拍照，慢慢感受老街和巷弄的可愛節奏。</p>
+        </article>
+        <article class="spot">
+          <span class="time">13:00</span>
+          <h2 class="place">阿暖午餐舖</h2>
+          <p class="desc">中午找間舒服小店，吃飽再和旅伴繼續跑點。</p>
+        </article>
+        <article class="spot">
+          <span class="time">16:30</span>
+          <h2 class="place">甜甜午後屋</h2>
+          <p class="desc">下午補一份甜點和飲料，讓快樂指數再加一點。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="day" data-day="第二天">
+      <div class="day-header">
+        <span class="badge">第二天</span>
+        <p class="day-note">早午餐加景點收尾的輕鬆安排</p>
+      </div>
+      <div class="spot-list">
+        <article class="spot">
+          <span class="time">09:00</span>
+          <h2 class="place">咪咪早午餐</h2>
+          <p class="desc">第二天走舒服路線，和小夥伴慢慢醒來再出發。</p>
+        </article>
+        <article class="spot">
+          <span class="time">11:30</span>
+          <h2 class="place">暖光古蹟點</h2>
+          <p class="desc">安排一個代表性景點，散步拍照都很有旅行感。</p>
+        </article>
+        <article class="spot">
+          <span class="time">14:00</span>
+          <h2 class="place">小歇午茶店</h2>
+          <p class="desc">中途找間舒服小店，聊天休息剛剛好。</p>
+        </article>
+        <article class="spot">
+          <span class="time">16:30</span>
+          <h2 class="place">伴手小鋪</h2>
+          <p class="desc">最後留一站挑伴手禮，替這趟歡樂遊收尾。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="day">
+      <div class="day-header">
+        <span class="badge">行前提醒</span>
+        <p class="day-note">出發前快速確認一下</p>
+      </div>
+      <div class="spot-list">
+        <article class="spot">
+          <h2 class="place">天氣</h2>
+          <p class="desc">示意：白天偏熱、晚上微涼，降雨機率先抓中等。</p>
+        </article>
+        <article class="spot">
+          <h2 class="place">要帶的東西</h2>
+          <p class="desc">示意：水壺、輕便外套、行動電源、雨具和悠遊卡。</p>
+        </article>
+        <article class="spot">
+          <h2 class="place">集合時間</h2>
+          <p class="desc">示意：上午 09:00 在車站前集合，提早 10 分鐘到。</p>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer-note">之後只要把各站的時間、店名和一句說明換掉就可以直接用。</p>
+  </main>
+
+  <script>
+    (() => {
+      const daySections = [...document.querySelectorAll('section.day[data-day]')];
+      const dayIndex = new Date().getDate() % 2 === 0 ? 1 : 0;
+      const activeSection = daySections[Math.min(dayIndex, daySections.length - 1)];
+      const todayList = document.getElementById('today-list');
+      const todayCopy = document.getElementById('today-copy');
+      if (!activeSection || !todayList || !todayCopy) return;
+      const label = activeSection.dataset.day || '今日';
+      todayCopy.textContent = `今天先看${label}，跟小夥伴暖暖出發，開心玩整天。`;
+      const spots = activeSection.querySelectorAll('.spot');
+      spots.forEach((spot) => todayList.appendChild(spot.cloneNode(true)));
+    })();
+  </script>
+</body>
+</html>
+
