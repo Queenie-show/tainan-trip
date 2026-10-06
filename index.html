@@ -225,7 +225,23 @@
       color: #ffd27a;
     }
 
-    .qr-card {`r`n      margin-top: 20px;`r`n      text-align: center;`r`n    }`r`n`r`n    .qr-card img {`r`n      width: min(100%, 240px);`r`n      height: auto;`r`n      display: block;`r`n      margin: 12px auto 0;`r`n      border-radius: 18px;`r`n      border: 1px solid var(--border);`r`n      box-shadow: var(--shadow);`r`n      background: #fff;`r`n    }`r`n`r`n    .footer-note {
+        .qr-card {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .qr-card img {
+      width: min(100%, 240px);
+      height: auto;
+      display: block;
+      margin: 12px auto 0;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      background: #fff;
+    }
+
+    .footer-note {
       margin-top: 18px;
       text-align: center;
       font-size: 0.92rem;
@@ -333,13 +349,21 @@
           <p class="desc">示意：水壺、輕便外套、行動電源、雨具和悠遊卡。</p>
         </article>
         <article class="spot">
-          <h2 class="place">集合時間</h2>
+          <h2 class="place">集合地點</h2>`r`n          <p class="desc">桃園機場第二航廈</p>`r`n        </article>`r`n        <article class="spot">`r`n          <h2 class="place">集合時間</h2>
           <p class="desc">示意：上午 09:00 在車站前集合，提早 10 分鐘到。</p>
         </article>
       </div>
     </section>
 
-    <section class="day qr-card">`r`n      <div class="day-header">`r`n        <span class="badge">分享用</span>`r`n        <p class="day-note">掃這個 QR 碼也可以直接開網頁</p>`r`n      </div>`r`n      <img src="tainan-trip-pages-qr.png" alt="網站 QR 碼">`r`n    </section>`r`n`r`n    <p class="footer-note">之後只要把各站的時間、店名和一句說明換掉就可以直接用。</p>
+        <section class="day qr-card">
+      <div class="day-header">
+        <span class="badge">分享用</span>
+        <p class="day-note">掃這個 QR 碼也可以直接開網頁</p>
+      </div>
+      <img src="tainan-trip-pages-qr.png" alt="網站 QR 碼">
+    </section>
+
+    <p class="footer-note">之後只要把各站的時間、店名和一句說明換掉就可以直接用。</p>
   </main>
 
   <script>
@@ -382,4 +406,5 @@
   </script>
 </body>
 </html>
+
 
